@@ -3,25 +3,21 @@ package leetcode
 import "testing"
 
 func search(nums []int, target int) int {
-	if len(nums) == 0 {
-		return -1
-	}
-
-	l, h := 0, len(nums)
-	for l < h {
-		m := (l + h) / 2
+	l, h := 0, len(nums)-1
+	for l <= h {
+		m := l + (h-l)/2
 
 		if nums[m] > target {
-			if nums[h-1] >= nums[m] || target >= nums[l] {
-				h = m
+			if nums[h] > nums[m] || target >= nums[l] {
+				h = m - 1
 			} else {
 				l = m + 1
 			}
 		} else if nums[m] < target {
-			if nums[m] >= nums[l] || target <= nums[h-1] {
+			if nums[m] > nums[l] || target <= nums[h] {
 				l = m + 1
 			} else {
-				h = m
+				h = m - 1
 			}
 		} else {
 			return m
